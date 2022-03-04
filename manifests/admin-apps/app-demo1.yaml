@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: demo1
+spec:
+  generators:
+  - list:
+      elements:
+      - cluster: rancher
+        url: https://kubernetes.default.svc
+      - cluster: minikube
+        url: https://192.168.59.100:8443
+  template:
+    metadata:
+      name: '{{cluster}}-demoapp1'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/argoproj/applicationset.git
+        targetRevision: HEAD
+        path: manifests/admin-apps/demoapp1
+      destination:
+        server: '{{url}}'
+        namespace: ns1
