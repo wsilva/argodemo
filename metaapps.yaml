@@ -10,7 +10,7 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: manifests
+    path: manifests/admin-apps
     repoURL: https://github.com/wsilva/argodemo.git
     targetRevision: HEAD
   syncPolicy:
