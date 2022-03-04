@@ -10,7 +10,9 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: manifests/admin-apps
+    directory:
+      recurse: true
+    path: manifests
     repoURL: https://github.com/wsilva/argodemo.git
     targetRevision: HEAD
   syncPolicy:
