@@ -16,7 +16,7 @@ spec:
     spec:
       project: default
       source:
-        repoURL: https://github.com/argoproj/applicationset.git
+        repoURL: https://github.com/wsilva/argodemo.git
         targetRevision: HEAD
         path: manifests/admin-apps/demoapp1
       destination:
