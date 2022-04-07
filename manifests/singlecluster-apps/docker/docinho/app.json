@@ -1,0 +1,11 @@
+{
+  "app": {
+    "name": "docinho",
+    "namespace": "docinho",
+    "path": "manifests/singlecluster-apps/docker/docinho/app"
+  },
+  "cluster": {
+    "name": "docker",
+    "url": "https://192.168.59.100:8443"
+  }
+}

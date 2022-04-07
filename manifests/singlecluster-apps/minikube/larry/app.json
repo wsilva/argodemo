@@ -1,0 +1,11 @@
+{
+  "app": {
+    "name": "larry",
+    "namespace": "larry",
+    "path": "manifests/singlecluster-apps/minikube/larry/app"
+  },
+  "cluster": {
+    "name": "minikube",
+    "url": "https://192.168.59.100:8443"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "app": {
+    "name": "moe",
+    "namespace": "moe",
+    "path": "manifests/singlecluster-apps/minikube/moe/app"
+  },
+  "cluster": {
+    "name": "minikube",
+    "url": "https://192.168.59.100:8443"
+  }
+}

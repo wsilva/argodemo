@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: metaapps-multicluster
+spec:
+  generators:
+  - git:
+      repoURL: https://github.com/wsilva/argodemo.git
+      revision: main
+      directories:
+      - path: manifests/multicluster-apps/*
+  template:
+    metadata:
+      name: 'metaapp-{{path.basename}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/wsilva/argodemo.git
+        targetRevision: main
+        path: '{{path}}'      
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: argocd
+      syncPolicy:
+        automated:
+          prune: true
+        syncOptions:
+          - ApplyOutOfSyncOnly=true
+          - CreateNamespace=true
+      ignoreDifferences:
+        - group: apps
+          kind: ServiceAccount
+          jsonPointers:
+            - /imagePullSecrets

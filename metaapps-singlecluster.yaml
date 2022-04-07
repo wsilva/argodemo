@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: metaapps-singlecluster
+spec:
+  generators:
+  - git:
+      repoURL: https://github.com/wsilva/argodemo.git
+      revision: main
+      files:
+      - path: manifests/singlecluster-apps/**/app.json
+  template:
+    metadata:
+      name: '{{cluster.name}}-{{app.name}}'
+    spec:
+      project: default
+      source:
+        directory:
+          recurse: true
+        repoURL: https://github.com/wsilva/argodemo.git
+        targetRevision: main
+        path: '{{app.path}}'      
+      destination:
+        server: '{{cluster.url}}'
+        namespace: '{{app.namespace}}'
+      syncPolicy:
+        automated:
+          prune: true
+        syncOptions:
+          - ApplyOutOfSyncOnly=true
+          - CreateNamespace=true
+      ignoreDifferences:
+        - group: apps
+          kind: ServiceAccount
+          jsonPointers:
+            - /imagePullSecrets

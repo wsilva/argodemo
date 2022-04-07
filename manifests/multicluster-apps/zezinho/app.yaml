@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: zezinho
+spec:
+  generators:
+  - list:
+      elements:
+      - cluster: docker
+        url: https://kubernetes.default.svc
+      - cluster: minikube
+        url: https://192.168.59.100:8443
+  template:
+    metadata:
+      name: '{{cluster}}-zezinho'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/wsilva/argodemo.git
+        targetRevision: main
+        path: manifests/multicluster-apps/zezinho/clusters/{{cluster}}
+      destination:
+        server: '{{url}}'
+        namespace: zezinho
+      syncPolicy:
+        automated:
+          prune: true
+        syncOptions:
+          - ApplyOutOfSyncOnly=true
+          - CreateNamespace=true
+      ignoreDifferences:
+        - group: apps
+          kind: ServiceAccount
+          jsonPointers:
+            - /imagePullSecrets

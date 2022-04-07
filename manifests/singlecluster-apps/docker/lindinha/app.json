@@ -1,0 +1,11 @@
+{
+  "app": {
+    "name": "lindinha",
+    "namespace": "lindinha",
+    "path": "manifests/singlecluster-apps/docker/lindinha/app"
+  },
+  "cluster": {
+    "name": "docker",
+    "url": "https://192.168.59.100:8443"
+  }
+}
